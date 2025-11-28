@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Dashboard - FoodWise India</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-container { max-width: 1200px; margin: 80px auto 50px; padding: 0 20px; }
+        .dashboard-header { background: var(--primary-orange); color: white; padding: 2rem; border-radius: 10px; margin-bottom: 2rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: var(--shadow); }
+        .donation-card { background: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: var(--shadow); border-left: 4px solid var(--primary-green); }
+        .btn-accept { background: var(--primary-green); color: white; }
+        .btn-request-volunteer { background: var(--primary-orange); color: white; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><h2>FoodWise India - NGO</h2></div>
+            <div class="nav-links">
+                <span id="userWelcome" style="color: white; margin-right: 1rem;"></span>
+                <a href="index.html" class="btn btn-secondary">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>CompostFarm DashBoard</h1>
+            <p>Manage food donations and coordinate with volunteers</p>
+        </div>
+
+        
+
+        <div class="action-card">
+            <h2>Available Donations</h2>
+            <div id="donationsList">
+                <p>Loading available donations...</p>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+   
+
+    <script src="js/api.js"></script>
+    <script src="js/compost-dashboard.js"></script>
+</body>
+</html>

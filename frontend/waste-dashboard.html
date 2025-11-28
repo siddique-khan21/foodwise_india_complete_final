@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Waste Chatbot | FoodWise India</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fa;
+    }
+    
+    .chat-dashboard {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-header {
+      padding: 20px 30px;
+      background: linear-gradient(135deg, #007bff, #00b4d8);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chat-header small {
+      display: block;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .chat-header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chat-body-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .chat-body {
+      width: 100%;
+      max-width: 900px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-top-info {
+      padding: 14px 18px;
+      border-bottom: 1px solid #e1e8ed;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-top-info-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .avatar-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #007bff, #00b4d8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    .chat-status {
+      font-size: 0.8rem;
+      color: #0a7b39;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chat-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #28a745;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 16px 18px 10px;
+      background: #f5f7fa;
+      overflow-y: auto;
+    }
+   .chat-message {
+  max-width: 70%;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+    .chat-message.bot {
+      background: #ffffff;
+      border: 1px solid #e1e8ed;
+      align-self: flex-start;
+    }
+    .chat-message.user {
+      background: #007bff;
+      color: #fff;
+      align-self: flex-end;
+    }
+    .chat-input-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid #e1e8ed;
+      background: #fff;
+    }
+    .chat-input-area textarea {
+      flex: 1;
+      resize: none;
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px solid #d0d7de;
+      font-size: 0.9rem;
+      max-height: 80px;
+      outline: none;
+    }
+    .chat-input-area textarea:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0,123,255,0.15);
+    }
+    .chat-send-btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: linear-gradient(135deg, #007bff, #00b4d8);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+    .chat-send-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .chat-helper-text {
+      font-size: 0.78rem;
+      color: #777;
+      padding: 0 18px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-dashboard">
+    <header class="chat-header">
+      <div>
+        <h1>
+          <i class="fas fa-seedling"></i>
+          Food Waste Chatbot
+        </h1>
+        <small>Ask anything about reducing food waste – events, homes, restaurants.</small>
+      </div>
+      <div>
+        <a href="index.html">
+          <i class="fas fa-arrow-left"></i>
+          Back to Home
+        </a>
+      </div>
+    </header>
+
+    <div class="chat-body-wrapper">
+      <div class="chat-body">
+        <div class="chat-top-info">
+          <div class="chat-top-info-left">
+            <div class="avatar-circle">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div>
+              <strong>FoodWise Assistant</strong><br>
+              <span style="font-size: 0.78rem; color: #555;">
+                Specialised in food waste, leftovers, donation & planning.
+              </span>
+            </div>
+          </div>
+          <div class="chat-status">
+            <span class="chat-status-dot"></span> Online
+          </div>
+        </div>
+
+ <div id="chatMessages" class="chat-messages">
+  <div class="chat-message bot" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; width: 100%;">
+    
+    <p style="text-align: left; width: 100%; margin-bottom: 6px;">
+      👋 <strong>Namaste! I am the FoodWise Food Waste Assistant.</strong>
+    </p>
+
+    <p style="text-align: left; width: 100%; margin: 0 0 6px;">
+      You can ask me things like:
+    </p>
+
+    <ul style="text-align: left; width: 100%; padding-left: 10px; margin: 0 0 6px;">
+      <li>How to reduce waste in a 200-people wedding buffet</li>
+      <li>What to do with leftover biryani / rotis / sweets</li>
+      <li>How to plan portions for hostel, mess, restaurants</li>
+      <li>Best ways to donate or reuse extra food safely</li>
+    </ul>
+
+    <p style="text-align: left; width: 100%; margin-top: 4px;">
+      I only answer <strong>food-waste–related questions.</strong>
+    </p>
+
+  </div>
+</div>
+
+
+
+        <div class="chat-helper-text">
+          Note: This chatbot is strictly for food waste & leftover management.
+        </div>
+
+        <div class="chat-input-area">
+          <textarea id="chatInput" rows="1"
+            placeholder="Type your food waste question here..."></textarea>
+          <button id="sendBtn" class="chat-send-btn">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI config + service -->
+  <script src="js/ai-config.js"></script>
+  <script src="js/ai-service.js"></script>
+  <script>
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function appendMessage(sender, text) {
+      const msg = document.createElement('div');
+      msg.classList.add('chat-message', sender);
+      msg.innerHTML = text
+        .replace(/\n/g, '<br>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function formatBotResponse(text) {
+  if (!text) return '';
+
+  // Remove JSON-like brackets
+  text = text.replace(/[{}[\]"]/g, '');
+
+  // Convert bullet-like lines into <li>
+  let lines = text.split('\n').map(l => l.trim()).filter(l => l);
+
+  let html = '';
+  let listStarted = false;
+
+  lines.forEach(line => {
+    if (
+      line.startsWith('- ') ||
+      line.startsWith('* ') ||
+      line.startsWith('• ') ||
+      /^\d+\./.test(line)
+    ) {
+      if (!listStarted) {
+        html += '<ul>';
+        listStarted = true;
+      }
+      html += `<li>${line.replace(/^[-*•]\s*/, '').replace(/^\d+\.\s*/, '')}</li>`;
+    } else {
+      if (listStarted) {
+        html += '</ul>';
+        listStarted = false;
+      }
+      html += `<p>${line}</p>`;
+    }
+  });
+
+  if (listStarted) html += '</ul>';
+
+  return html;
+}
+
+
+    async function handleSend() {
+      const userText = chatInput.value.trim();
+      if (!userText) return;
+
+      appendMessage('user', userText);
+      chatInput.value = '';
+      chatInput.focus();
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+
+      // Build formData for getFoodWasteAdvice
+      const formData = {
+        wasteChallenge: userText,
+        userRole: 'individual_or_event_organizer',
+        kitchenScale: 'home_or_event',
+        wastedFoods: 'not_specified',
+        budgetLevel: 'medium'
+      };
+
+      try {
+        const responseText = await foodWiseAI.getFoodWasteAdvice(formData);
+        appendMessage('bot', formatBotResponse(responseText));
+
+      } catch (err) {
+        console.error(err);
+        appendMessage('bot', '🚫 Sorry, I could not process this right now. Please check your connection or try again later.');
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+      }
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend();
+      }
+    });
+  </script>
+</body>
+</html>

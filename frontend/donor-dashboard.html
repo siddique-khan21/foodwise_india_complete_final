@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard - FoodWise India</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-container { max-width: 1200px; margin: 80px auto 50px; padding: 0 20px; }
+        .dashboard-header { background: var(--primary-green); color: white; padding: 2rem; border-radius: 10px; margin-bottom: 2rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: var(--shadow); }
+        .action-card { background: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: var(--shadow); }
+        .btn-success { background: var(--primary-green); color: white; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo"><h2>FoodWise India - Donor</h2></div>
+            <div class="nav-links">
+                <span id="userWelcome" style="color: white; margin-right: 1rem;"></span>
+                <a href="index.html" class="btn btn-secondary">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Donor Dashboard</h1>
+            <p>Manage your food donations and track impact</p>
+        </div>
+
+        
+
+        <div class="action-card">
+            <h2>Add New Donation</h2>
+            <button class="btn btn-success" onclick="openDonationForm()">+ Add Food Donation</button>
+        </div>
+
+        
+    </div>
+
+    <!-- Donation Form Modal -->
+    <div class="modal" id="donationModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeDonationModal()">×</button>
+        <h2>Add Food Donation</h2>
+        
+        <div class="form-group">
+            <label>Food Item Name *</label>
+            <input type="text" id="foodName" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Food Description</label>
+            <textarea id="foodDescription" rows="3" placeholder="e.g., Vegetable biryani, chapati, rice, etc."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label>Food Image</label>
+            <input type="file" id="foodImage" accept="image/*">
+            <small>Upload photo of the food (optional)</small>
+        </div>
+        
+        <div class="form-group">
+            <label>Quantity (kg) *</label>
+            <input type="number" id="foodQuantity" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Storage Temperature *</label>
+            <select id="storageTemp" required>
+                <option value="Room Temperature">Room Temperature</option>
+                <option value="Refrigerated">Refrigerated</option>
+                <option value="Frozen">Frozen</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Hours Since Cooked *</label>
+            <input type="number" id="hoursCooked" required>
+        </div>
+        <div class="form-group">
+    <label>Pickup Address *</label>
+    <textarea id="pickupAddress" rows="3" placeholder="Full address for pickup" required></textarea>
+</div>
+
+<div class="form-group">
+    <label>Location Link (Google Maps)</label>
+    <input type="url" id="locationLink" placeholder="https://maps.google.com/...">
+</div>
+        
+        <button class="btn btn-success" onclick="submitDonation()">Submit Donation</button>
+    </div>
+</div>
+
+    <script src="js/api.js"></script>
+    <script src="js/donor-dashboard.js"></script>
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - FoodWise India</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/register.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>FoodWise India</h2>
+            </div>
+            <div class="nav-links">
+                <button id="themeToggle">🌙</button>
+                <a href="index.html" class="back-btn">← Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="register-container">
+        <div class="register-form">
+            <h2>Join FoodWise India</h2>
+            <p>Select your role to continue registration</p>
+            
+            <div class="form-step active" id="step1">
+                <h3>Step 1: Choose Your Role</h3>
+                <div class="role-selection">
+                    <div class="reg-role-card" data-role="donor">
+                        <h3>🍽️ Food Donor</h3>
+                        <p>Restaurants, Caterers, Events</p>
+                        <small>Required: FSSAI License, PAN, Address Proof</small>
+                    </div>
+                    <div class="reg-role-card" data-role="receiver">
+                        <h3>🤝 NGO/Receiver</h3>
+                        <p>Food Distribution Organizations</p>
+                        <small>Required: NGO Certificate, 80G, Bank Details</small>
+                    </div>
+                    <div class="reg-role-card" data-role="volunteer">
+                        <h3>👥 Volunteer</h3>
+                        <p>Help with Food Pickups</p>
+                        <small>Required: ID Proof, Contact Details</small>
+                    </div>
+                    <div class="reg-role-card" data-role="farm">
+                        <h3>🌱 Farm/Facility</h3>
+                        <p>Composting & Animal Feed</p>
+                        <small>Required: License, Facility Details</small>
+                    </div>
+                </div>
+                <button class="next-btn" onclick="nextStep(2)">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/register.js"></script>
+</body>
+</html>

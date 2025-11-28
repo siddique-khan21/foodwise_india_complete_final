@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Recipe Generator | FoodWise India</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fa;
+    }
+    .ai-dashboard {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .ai-dashboard-header {
+      padding: 20px 30px;
+      background: linear-gradient(135deg, #ff9800, #ffb74d);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ai-dashboard-header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ai-dashboard-header small {
+      display: block;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .ai-dashboard-header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ai-dashboard-body {
+      max-width: 960px;
+      margin: 24px auto 32px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px 20px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #fff3e0;
+      color: #e65100;
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+    }
+    .ai-dashboard-body h2 {
+      margin: 4px 0 6px;
+      font-size: 1.25rem;
+    }
+    .ai-desc {
+      margin: 0 0 16px;
+      color: #555;
+      font-size: 0.92rem;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px 16px;
+      margin-bottom: 18px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #d0d7de;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #ff9800;
+      box-shadow: 0 0 0 2px rgba(255,152,0,0.15);
+    }
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .btn-primary {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #ff9800, #ffb74d);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .result-container {
+      margin-top: 18px;
+      padding: 14px 12px;
+      border-radius: 12px;
+      background: #fff8e1;
+      border: 1px solid #ffe0b2;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+    }
+    .result-container h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+    .footer-note {
+      margin-top: 12px;
+      font-size: 0.78rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="ai-dashboard">
+    <header class="ai-dashboard-header">
+      <div>
+        <h1>
+          <i class="fas fa-bowl-rice"></i>
+          Smart Recipe Generator
+        </h1>
+        <small>Turn leftovers into creative, safe, tasty dishes.</small>
+      </div>
+      <div>
+        <a href="index.html">
+          <i class="fas fa-arrow-left"></i>
+          Back to Home
+        </a>
+      </div>
+    </header>
+
+    <main class="ai-dashboard-body">
+      <div class="ai-badge">
+        <i class="fas fa-robot"></i>
+        Powered by Gemini · FoodWise AI
+      </div>
+      <h2>Tell FoodWise What You Have</h2>
+      <p class="ai-desc">
+        Enter the leftover ingredients you have, and FoodWise AI will design a recipe that maximizes
+        leftover usage and keeps food safety in mind.
+      </p>
+
+      <form id="recipeForm">
+        <div class="form-grid">
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="ingredientList">Ingredients / Leftovers</label>
+            <textarea id="ingredientList"
+              placeholder="e.g. 2 kg cooked rice (4 hours old), 1 kg paneer butter masala gravy, half cabbage, some boiled potatoes"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="foodState">State of Food</label>
+            <select id="foodState">
+              <option value="mixed">Mixed (raw + cooked)</option>
+              <option value="raw">Mostly Raw</option>
+              <option value="cooked">Mostly Cooked</option>
+              <option value="fried">Fried Items</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cuisinePreference">Cuisine Preference</label>
+            <select id="cuisinePreference">
+              <option value="indian">Indian</option>
+              <option value="south_indian">South Indian</option>
+              <option value="north_indian">North Indian</option>
+              <option value="chinese">Indo-Chinese</option>
+              <option value="continental">Continental</option>
+              <option value="any">Any / Surprise Me</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="dietType">Diet Type</label>
+            <select id="dietType">
+              <option value="veg">Pure Veg</option>
+              <option value="vegan">Vegan</option>
+              <option value="jain">Jain-friendly</option>
+              <option value="egg">Vegetarian with Egg</option>
+              <option value="non_veg">Non-Veg</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="servingsNeeded">Servings Needed</label>
+            <input type="number" id="servingsNeeded" min="1" placeholder="e.g. 10">
+          </div>
+
+          <div class="form-group">
+            <label for="timeAvailable">Time Available (minutes)</label>
+            <input type="number" id="timeAvailable" min="5" placeholder="e.g. 30">
+          </div>
+        </div>
+
+        <button type="submit" id="recipeBtn" class="btn-primary">
+          <i class="fas fa-wand-magic-sparkles"></i>
+          Generate Recipe
+        </button>
+      </form>
+
+      <div id="recipeResult" class="result-container" style="display:none;">
+        <h4>AI-Generated Recipe</h4>
+        <div id="recipeText"></div>
+      </div>
+
+      <p class="footer-note">
+        Tip: Always smell, check, and reheat leftovers properly. When in doubt, don’t risk health just to save food.
+      </p>
+    </main>
+  </div>
+
+  <!-- AI config + service -->
+ <script src="js/ai-config.js"></script>
+<script src="js/ai-service.js"></script>
+<script>
+  const recipeForm = document.getElementById('recipeForm');
+  const recipeBtn = document.getElementById('recipeBtn');
+  const recipeResult = document.getElementById('recipeResult');
+  const recipeText = document.getElementById('recipeText');
+
+  recipeForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      ingredientList: document.getElementById('ingredientList').value || 'not_specified',
+      foodState: document.getElementById('foodState').value || 'mixed',
+      cuisinePreference: document.getElementById('cuisinePreference').value || 'any',
+      dietType: document.getElementById('dietType').value || 'veg',
+      servingsNeeded: document.getElementById('servingsNeeded').value || '2',
+      timeAvailable: document.getElementById('timeAvailable').value || '30'
+    };
+
+    if (!formData.ingredientList || formData.ingredientList === 'not_specified') {
+      alert('Please describe at least some ingredients / leftovers.');
+      return;
+    }
+
+    recipeBtn.disabled = true;
+    recipeBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Generating...';
+
+   try {
+  const raw = await foodWiseAI.generateSmartRecipe(formData);
+
+  // TRY PARSING JSON EVEN IF IT COMES AS RAW TEXT
+  let parsed;
+  try {
+    parsed = JSON.parse(raw.match(/\{[\s\S]*\}/)[0]);
+  } catch (e) {
+    parsed = foodWiseAI.parseJSONResponse(raw);
+  }
+
+  let html = '';
+
+  // TITLE
+  if (parsed.recipe_name) {
+    html += `<h4>${parsed.recipe_name}</h4>`;
+  }
+
+  // SERVINGS
+  if (parsed.servings) {
+    html += `<p><strong>Servings:</strong> ${parsed.servings}</p>`;
+  }
+
+  // INGREDIENTS
+  if (parsed.ingredients_needed) {
+    html += `<h5>Ingredients</h5><ul>`;
+    parsed.ingredients_needed.forEach(i => {
+      html += `<li>${i.item} – ${i.quantity}</li>`;
+    });
+    html += `</ul>`;
+  }
+
+  // STEPS
+  if (parsed.steps) {
+    html += `<h5>Steps</h5><ol>`;
+    parsed.steps.forEach(s => {
+      html += `<li>${s}</li>`;
+    });
+    html += `</ol>`;
+  }
+
+  // LEFTOVER USAGE
+  if (parsed.leftover_usage_percentage) {
+    html += `<p><strong>Leftover Usage:</strong> ${parsed.leftover_usage_percentage}</p>`;
+  }
+
+  // ALTERNATIVES
+  if (parsed.alternatives) {
+    html += `<h5>Alternatives</h5><ul>`;
+    parsed.alternatives.forEach(a => {
+      html += `<li>${a}</li>`;
+    });
+    html += `</ul>`;
+  }
+
+  // TIPS
+  if (parsed.tips) {
+    html += `<p><strong>Tips:</strong> ${parsed.tips}</p>`;
+  }
+
+  // FALLBACK
+  if (!html.trim()) {
+    html = `<p>${raw.replace(/[{}"]/g, '')}</p>`;
+  }
+
+  recipeText.innerHTML = html;
+  recipeResult.style.display = 'block';
+
+
+      if (parsed.recipe_name || parsed.ingredients_needed || parsed.steps) {
+        if (parsed.recipe_name) {
+          html += `<h4>${parsed.recipe_name}</h4>`;
+        }
+        if (parsed.servings) {
+          html += `<p><strong>Servings:</strong> ${parsed.servings}</p>`;
+        }
+
+        if (parsed.ingredients_needed && parsed.ingredients_needed.length) {
+          html += '<h5>Ingredients</h5><ul>';
+          parsed.ingredients_needed.forEach(item => {
+            html += `<li>${item.item}: ${item.quantity}</li>`;
+          });
+          html += '</ul>';
+        }
+
+        if (parsed.steps && parsed.steps.length) {
+          html += '<h5>Steps</h5><ol>';
+          parsed.steps.forEach(step => {
+            html += `<li>${step}</li>`;
+          });
+          html += '</ol>';
+        }
+
+        if (parsed.leftover_usage_percentage) {
+          html += `<p><strong>Leftover Usage:</strong> ${parsed.leftover_usage_percentage}</p>`;
+        }
+
+        if (parsed.alternatives && parsed.alternatives.length) {
+          html += '<h5>Alternatives</h5><ul>';
+          parsed.alternatives.forEach(alt => {
+            html += `<li>${alt}</li>`;
+          });
+          html += '</ul>';
+        }
+
+        if (parsed.tips) {
+          html += `<p><strong>Tips:</strong> ${parsed.tips}</p>`;
+        }
+      } else if (parsed.raw_response) {
+        html = `<p>${parsed.raw_response}</p>`;
+      } else {
+        html = `<p>${raw}</p>`;
+      }
+
+      recipeText.innerHTML = html;
+      recipeResult.style.display = 'block';
+    } catch (err) {
+      console.error(err);
+      alert('Failed to generate recipe. Please check API key / network.');
+    } finally {
+      recipeBtn.disabled = false;
+      recipeBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Generate Recipe';
+    }
+  });
+</script>
+
+</body>
+</html>

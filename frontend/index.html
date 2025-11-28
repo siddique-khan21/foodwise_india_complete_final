@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodWise India - Food Waste Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-recycle"></i>
+                </div>
+                <h1 class="logo">FoodWise India</h1>
+            </div>
+            <p class="tagline">Reducing Food Waste, Feeding India</p>
+            
+            <!-- Floating Animation Cards -->
+            <div class="floating-cards">
+                <div class="floating-card">
+                    <i class="fas fa-utensils"></i>
+                    <h4>Donors</h4>
+                    <p>Share Surplus</p>
+                </div>
+                <div class="floating-card">
+                    <i class="fas fa-hands-helping"></i>
+                    <h4>NGOs</h4>
+                    <p>Receive Food</p>
+                </div>
+                <div class="floating-card">
+                    <i class="fas fa-recycle"></i>
+                    <h4>Eco Partners</h4>
+                    <p>Sustainable Solutions</p>
+                </div>
+            </div>
+
+
+            <!-- Profile Selection Title -->
+            <h2 class="profile-title">Select Your Profile</h2>
+            
+            <!-- Role Selection -->
+            <div class="role-selection">
+                <div class="role-card" onclick="openRegistration('donor')">
+                    <div class="role-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Food Donor</h3>
+                    <p>Restaurants, Events, Caterers</p>
+                </div>
+                <div class="role-card" onclick="openRegistration('receiver')">
+                    <div class="role-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Food Receiver</h3>
+                    <p>NGOs, Orphanages, Shelters</p>
+                </div>
+                <div class="role-card" onclick="openRegistration('admin')">
+                    <div class="role-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Admin</h3>
+                    <p>Platform Management</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Volunteer CTA Section -->
+    <section class="volunteer-cta">
+        <div class="container">
+            <h2>Join as a Volunteer</h2>
+            <p>Be part of the solution. Help us reduce food waste and feed those in need.</p>
+            <button class="btn btn-secondary" onclick="openRegistration('volunteer')">Become a Volunteer</button>
+        </div>
+    </section>
+
+    <!-- Animal Farms & Composting Section -->
+    <section class="solutions-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Eco-Friendly Solutions</h2>
+                <p>Complete food waste management cycle</p>
+            </div>
+            
+            <div class="solutions-intro">
+                <p>For <strong>Cattle Farms & Composting Facilities</strong> - Partner with us to transform non-edible food waste into valuable resources. Help create a sustainable ecosystem while generating additional revenue streams.</p>
+            </div>
+            
+            <div class="solutions-grid">
+                <div class="solution-card" onclick="openRegistration('animal')">
+                    <i class="fas fa-cow" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 1rem;"></i>
+                    <h3>Animal Feed Partner</h3>
+                    <p>Convert non-edible food waste into nutritious animal feed for cattle farms</p>
+                    <div style="margin-top: 1rem; color: var(--primary-green); font-weight: 600;">
+                        Click to Register as Partner
+                    </div>
+                </div>
+                <div class="solution-card" onclick="openRegistration('compost')">
+                    <i class="fas fa-recycle" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 1rem;"></i>
+                    <h3>Composting Partner</h3>
+                    <p>Transform food waste into organic compost for farming and gardening</p>
+                    <div style="margin-top: 1rem; color: var(--primary-green); font-weight: 600;">
+                        Click to Register as Partner
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rules Section -->
+    <section class="rules-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Platform Rules & Guidelines</h2>
+                <p>Ensuring safety, quality, and trust for all users</p>
+            </div>
+            
+            <div class="rules-container">
+                <div class="rules-category">
+                    <h3 onclick="toggleRules('donor-rules')">
+                        Donor Rules
+                        <i class="fas fa-chevron-down"></i>
+                    </h3>
+                    <div class="rules-content" id="donor-rules">
+                        <ul>
+                            <li>Donate only safe, hygienic, and uncontaminated food.</li>
+                            <li>Provide accurate details about food quantity, quality, and pickup time.</li>
+                            <li>Ensure proper packaging before pickup (covered, spill-proof, veg/non-veg labelled).s</li>
+                            <li>Be available at the scheduled pickup time or update changes in advance.</li>
+                            <li>Do not demand money or compensation for donations.</li>
+                            <li>Follow all local food safety and municipal guidelines.</li>
+                            <li>Violation of these rules may lead to suspension, termination, or legal action.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="rules-category">
+                    <h3 onclick="toggleRules('receiver-rules')">
+                        NGO/Receiver Rules
+                        <i class="fas fa-chevron-down"></i>
+                    </h3>
+                    <div class="rules-content" id="receiver-rules">
+                        <ul>
+                            <li>OVerify food quality at pickup and report unsafe food immediately.</li>
+                            <li>Collect donations within the committed time window.</li>
+                            <li>Use donated food only for beneficiaries—not for resale</li>
+                            <li>Maintain transparency and records when requested.</li>
+                            <li>Violations may lead to suspension, removal from the platform, or legal action</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="rules-category">
+                    <h3 onclick="toggleRules('volunteer-rules')">
+                        Volunteer Rules
+                        <i class="fas fa-chevron-down"></i>
+                    </h3>
+                    <div class="rules-content" id="volunteer-rules">
+                        <ul>
+                            <li>Only assist approved pickup requests</li>
+                            <li>Arrive on time for pickups and follow assigned routes.</li>
+                            <li>Respect donor and receiver privacy</li>
+                            <li>Do not open, consume, or tamper with donated food.</li>
+                            <li>Upload proof (photos, delivery confirmation) when required.</li>
+                            <li>Use the app responsibly—no fake updates or location misuse.</li>
+                            <li>Any violation may lead to suspension, blacklisting, or legal action.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="rules-category">
+                    <h3 onclick="toggleRules('farm-rules')">
+                        Compost/Animal Feed Farm Rules
+                        <i class="fas fa-chevron-down"></i>
+                    </h3>
+                    <div class="rules-content" id="farm-rules">
+                        <ul>
+                            <li>Accept only food waste suitable for composting or animal feed.</li>
+                            <li>Ensure eco-friendly disposal and follow environmental regulations.</li>
+                            <li>Do not mix plastic or non-biodegradable items with collected waste.</li>
+                            <li>Follow all local agricultural and livestock safety guidelines.</li>
+                            <li>Coordinate pickup schedules efficiently</li>
+                            <li>Violations may lead to termination or legal environmental action.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>FoodWise India</h3>
+                    <p>Transforming food waste into hope through technology and community.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Impact</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> contact@foodwiseindia.org</p>
+                    <p><i class="fas fa-phone"></i> +91 9880011433</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Mysore,Karnataka</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Settings</h3>
+                    <div class="theme-toggle">
+                        <span>Dark Mode</span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="theme-checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 15px;">Profile</button>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FoodWise India. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Registration Modal -->
+    <div class="modal" id="registrationModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalBody">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+   
+   <!-- Login Modal -->
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeLoginModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2>Login to FoodWise India</h2>
+        <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" required>
+        </div>
+        <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+        </div>
+        <button class="btn btn-primary" onclick="submitLogin()">Login</button>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            Default password: <strong>TempPass123!</strong>
+        </p>
+    </div>
+</div>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <h2>FoodWise India</h2>
+        </div>
+        <div class="nav-links" style="display: flex; margin-left: auto;">
+            <button class="login-btn" onclick="openLoginModal()">Login</button>
+        </div>
+    </div>
+</nav>
+<!-- Professional Chatbot -->
+<div class="chatbot-container">
+    <!-- Floating robot button -->
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <i class="fas fa-robot"></i>
+    </button>
+    
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbotWindow">
+        <!-- Chat Header -->
+        <div class="chatbot-header">
+            <div class="chatbot-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="chatbot-info">
+                <h3>FoodWise AI Assistant</h3>
+                <span class="status">🟢 Online</span>
+            </div>
+            <button class="close-chat" onclick="closeChatbot()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Chat Body -->
+        <div class="chatbot-body" id="chatbotBody">
+            <!-- Welcome Message -->
+            <div class="chat-message bot-message">
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <p>Hello! I'm your FoodWise AI Assistant. What would you like to use?</p>
+                    <div class="quick-options">
+                        <button class="quick-option" onclick="showFeature('prediction')">
+                            📊 Food Quantity Predictor
+                        </button>
+                        <button class="quick-option" onclick="showFeature('recipe')">
+                            👨‍🍳 Recipe Generator
+                        </button>
+                        <button class="quick-option" onclick="showFeature('waste')">
+                            ♻️ Food Waste Chat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="js/ai-config.js"></script>
+<script src="js/ai-service.js"></script>
+<script src="js/api.js"></script> <!-- keep this only if your project uses it -->
+<script src="js/script.js"></script>
+</body>
+</html>

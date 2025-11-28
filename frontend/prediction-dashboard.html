@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Quantity Prediction | FoodWise India</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fa;
+    }
+    .ai-dashboard {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .ai-dashboard-header {
+      padding: 20px 30px;
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ai-dashboard-header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ai-dashboard-header small {
+      display: block;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .ai-dashboard-header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ai-dashboard-body {
+      max-width: 960px;
+      margin: 24px auto 32px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px 20px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #e8f6ee;
+      color: #1c7c3b;
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+    }
+    .ai-dashboard-body h2 {
+      margin: 4px 0 6px;
+      font-size: 1.25rem;
+    }
+    .ai-desc {
+      margin: 0 0 16px;
+      color: #555;
+      font-size: 0.92rem;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px 16px;
+      margin-bottom: 18px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #d0d7de;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 0 2px rgba(40,167,69,0.15);
+    }
+    .form-group textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+    .btn-primary {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .result-container {
+      margin-top: 18px;
+      padding: 14px 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e1e8ed;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+    }
+    .result-container h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+    .footer-note {
+      margin-top: 12px;
+      font-size: 0.78rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="ai-dashboard">
+    <header class="ai-dashboard-header">
+      <div>
+        <h1>
+          <i class="fas fa-calculator"></i>
+          Food Quantity Prediction
+        </h1>
+        <small>Plan the right quantity with minimal food waste.</small>
+      </div>
+      <div>
+        <a href="index.html">
+          <i class="fas fa-arrow-left"></i>
+          Back to Home
+        </a>
+      </div>
+    </header>
+
+    <main class="ai-dashboard-body">
+      <div class="ai-badge">
+        <i class="fas fa-robot"></i>
+        Powered by Gemini · FoodWise AI
+      </div>
+      <h2>Enter Event Details</h2>
+      <p class="ai-desc">
+        Fill these basic details and FoodWise AI will calculate how much food you should prepare,
+        along with a dish-wise breakdown.
+      </p>
+
+      <form id="predictionForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="eventType">Event Type</label>
+            <select id="eventType">
+              <option value="">Select event type</option>
+              <option value="wedding">Wedding</option>
+              <option value="corporate">Corporate Event</option>
+              <option value="birthday">Birthday Party</option>
+              <option value="festival">Festival / Religious Event</option>
+              <option value="college_fest">College Fest</option>
+              <option value="casual">Casual Gathering</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mealType">Meal Type</label>
+            <select id="mealType">
+              <option value="">Select meal type</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+              <option value="high_tea">High Tea / Snacks</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="guestCount">Number of Guests</label>
+            <input type="number" id="guestCount" placeholder="e.g. 150" min="1">
+          </div>
+
+          <div class="form-group">
+            <label for="cuisineType">Cuisine Type</label>
+            <select id="cuisineType">
+              <option value="">Select cuisine</option>
+              <option value="north_indian">North Indian</option>
+              <option value="south_indian">South Indian</option>
+              <option value="indian_mixed">Indian Mixed</option>
+              <option value="continental">Continental</option>
+              <option value="chinese">Chinese / Indo-Chinese</option>
+              <option value="other">Other / Fusion</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="vegNonVeg">Veg / Non-Veg Ratio</label>
+            <select id="vegNonVeg">
+              <option value="100_0">100% Vegetarian</option>
+              <option value="80_20">80% Veg, 20% Non-Veg</option>
+              <option value="70_30">70% Veg, 30% Non-Veg</option>
+              <option value="50_50">50% Veg, 50% Non-Veg</option>
+              <option value="30_70">30% Veg, 70% Non-Veg</option>
+              <option value="0_100">100% Non-Vegetarian</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="servingStyle">Serving Style</label>
+            <select id="servingStyle">
+              <option value="buffet">Buffet</option>
+              <option value="plated">Plated Service</option>
+              <option value="family_style">Family Style</option>
+              <option value="packed_meals">Packed Meals</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="attendanceRate">Expected Attendance Rate</label>
+            <select id="attendanceRate">
+              <option value="100">100% (All confirmed)</option>
+              <option value="90">Around 90%</option>
+              <option value="80">Around 80%</option>
+              <option value="70">Around 70%</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="menuSummary">Menu Summary (short list)</label>
+            <textarea id="menuSummary"
+              placeholder="e.g. 3 veg starters, 1 non-veg starter, 4 main dishes, 2 desserts. Key items: Paneer Tikka, Veg Biryani, Butter Naan, Gulab Jamun."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" id="predictBtn" class="btn-primary">
+          <i class="fas fa-magic"></i>
+          Calculate Food Quantities
+        </button>
+      </form>
+
+      <div id="predictionResult" class="result-container" style="display:none;">
+        <h4>Prediction Results</h4>
+        <div id="predictionText"></div>
+      </div>
+
+      <p class="footer-note">
+        Note: This is an AI-based estimate. Always cross-check with your caterer and consider donation plans
+        if you keep buffer quantities.
+      </p>
+    </main>
+  </div>
+
+  <!-- AI config + service -->
+ <script src="js/ai-config.js"></script>
+<script src="js/ai-service.js"></script>
+<script>
+  const form = document.getElementById('predictionForm');
+  const btn = document.getElementById('predictBtn');
+  const resultBox = document.getElementById('predictionResult');
+  const resultText = document.getElementById('predictionText');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      eventType: document.getElementById('eventType').value || 'not_specified',
+      mealType: document.getElementById('mealType').value || 'not_specified',
+      guestCount: document.getElementById('guestCount').value || '0',
+      cuisineType: document.getElementById('cuisineType').value || 'not_specified',
+      vegNonVeg: document.getElementById('vegNonVeg').value || 'not_specified',
+      menuSummary: document.getElementById('menuSummary').value || 'not_specified',
+      servingStyle: document.getElementById('servingStyle').value || 'not_specified',
+      attendanceRate: document.getElementById('attendanceRate').value || '100'
+    };
+
+    if (!formData.guestCount || formData.guestCount === '0') {
+      alert('Please enter number of guests.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Calculating...';
+
+    try {
+      const raw = await foodWiseAI.predictFoodQuantity(formData);
+      const parsed = foodWiseAI.parseJSONResponse(raw);
+
+      let html = '';
+
+      if (parsed.summary || parsed.total_food_required) {
+        html += `<p><strong>Summary:</strong> ${parsed.summary || ''}</p>`;
+        if (parsed.total_food_required) {
+          html += `<p><strong>Total Food Required:</strong> ${parsed.total_food_required}</p>`;
+        }
+
+        if (parsed.dish_wise_prediction) {
+          const d = parsed.dish_wise_prediction;
+          if (d.starters && d.starters.length) {
+            html += '<h5>Starters</h5><ul>';
+            d.starters.forEach(item => {
+              html += `<li>${item.item}: ${item.quantity}</li>`;
+            });
+            html += '</ul>';
+          }
+          if (d.main_course && d.main_course.length) {
+            html += '<h5>Main Course</h5><ul>';
+            d.main_course.forEach(item => {
+              html += `<li>${item.item}: ${item.quantity}</li>`;
+            });
+            html += '</ul>';
+          }
+          if (d.desserts && d.desserts.length) {
+            html += '<h5>Desserts</h5><ul>';
+            d.desserts.forEach(item => {
+              html += `<li>${item.item}: ${item.quantity}</li>`;
+            });
+            html += '</ul>';
+          }
+        }
+
+        if (parsed.notes) {
+          html += `<p><strong>Notes:</strong> ${parsed.notes}</p>`;
+        }
+      } else if (parsed.raw_response) {
+        html = `<p>${parsed.raw_response}</p>`;
+      } else {
+        html = `<p>${raw}</p>`;
+      }
+
+      resultText.innerHTML = html;
+      resultBox.style.display = 'block';
+    } catch (err) {
+      console.error(err);
+      alert('Failed to get AI prediction. Please check API key / network.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-magic"></i> Calculate Food Quantities';
+    }
+  });
+</script>
+
+</body>
+</html>
